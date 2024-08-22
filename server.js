@@ -1,50 +1,57 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const XLSX = require('xlsx'); // Use regular xlsx first to debug basic functionality
-const fs = require('fs');
+document.getElementById("dataForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-const app = express();
-app.use(bodyParser.json());
-app.use(express.static('public'));
+    const formData = {
+        name: document.getElementById("name").value,
+        sex: document.getElementById("sex").value,
+        dob: document.getElementById("dob").value,
+        qualification: document.getElementById("qualification").value,
+        rank: document.getElementById("rank").value,
+        area_of_specialization: document.getElementById("area_of_specialization").value,
+        teaching_subject: document.getElementById("teaching_subject").value,
+        moe: document.getElementById("moe").value,
+        phoneNumber: document.getElementById("phoneNumber").value,
+        duration: document.getElementById("duration").value,
+        responsibilty: document.getElementById("responsibilty").value,
+        lga: document.getElementById("lga").value,
+        gl: document.getElementById("gl").value,
+    };
 
-const fileName = 'data.xlsx';
-let workbook;
-let worksheet;
+    try {
+        const response = await fetch("hhttps://inventory-management-project-web.vercel.app/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
 
-if (fs.existsSync(fileName)) {
-    workbook = XLSX.readFile(fileName);
-    worksheet = workbook.Sheets['Sheet1'];
-} else {
-    workbook = XLSX.utils.book_new();
-    worksheet = XLSX.utils.aoa_to_sheet([[
-        "NAME", "SEX", "DATE OF BIRTH", 
-        "QUALIFICATION", "RANK", "AREA of SPECIALIZATION",
-        "TEACHING SUBJECT", "M.O.E", "PHONE NUMBER", 
-        "DURATION", "RESPONSIBILITY", "L.G.A", "G.L"
-    ]]);
+        const data = await response.json();
 
-    // Save the Excel file without styling first
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-    XLSX.writeFile(workbook, fileName);
-}
-
-app.post('/submit', (req, res) => {
-    const data = req.body;
-
-    const newRow = [
-        data.name, data.sex, data.dob, 
-        data.qualification, data.rank, data.area_of_specialization,
-        data.teaching_subject, data.moe, data.phoneNumber,
-        data.duration, data.responsibilty, data.lga, data.gl
-    ];
-
-    XLSX.utils.sheet_add_aoa(worksheet, [newRow], { origin: -1 });
-
-    XLSX.writeFile(workbook, fileName);
-
-    res.json({ message: 'Data saved successfully!' });
-});
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+        if (response.ok) {
+            swal({
+                title: "Success!",
+                text: "Form saved successfully!",
+                icon: "success",
+            }).then(() => {
+                // Reload the page after the SweetAlert is closed
+                window.location.reload();
+            });
+        } else {
+            swal({
+                title: "Error",
+                text: "Error Submitting Form",
+                icon: "warning",
+                dangerMode: true,
+            });
+        }
+    } catch (error) {
+        swal({
+            title: "Error",
+            text: "Error Submitting Form",
+            icon: "warning",
+            dangerMode: true,
+        });
+        console.error("Error:", error);
+    }
 });
