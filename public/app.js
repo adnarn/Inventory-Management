@@ -52,6 +52,7 @@ document.getElementById("dataForm").addEventListener("submit", async function (e
             icon: "warning",
             dangerMode: true,
         });
-        console.error("Error:", error);
+         console.error('Error processing request:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
