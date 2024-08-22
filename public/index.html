@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Entry Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="dataForm">
+        <h2 class="heading">Data Entry Form</h2>
+
+        <div class="input-group">
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="text" id="sex" name="sex" placeholder="Sex" required>
+        </div>
+
+        <div class="input-group">
+            <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
+            <input type="text" id="qualification" name="qualification" placeholder="Qualification" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="rank" name="rank" placeholder="Rank" required>
+            <input type="text" id="gl" name="gl" placeholder="G.L" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="lga" name="lga" placeholder="L.G.A" required>
+            <input type="text" id="teaching_subject" name="teaching_subject" placeholder="Teaching Subject" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+            <input type="text" id="moe" name="moe" placeholder="M.O.E" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="responsibilty" name="responsibilty" placeholder="Responsibility" required>
+            <input type="text" id="duration" name="duration" placeholder="Duration" required>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="area_of_specialization" name="area_of_specialization" placeholder="Area of Specialization" required>
+        </div>
+
+        <button type="submit" id="btn">Submit</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script src="app.js"></script>
+</body>
+</html>
