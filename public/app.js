@@ -18,7 +18,7 @@ document.getElementById("dataForm").addEventListener("submit", async function (e
     };
 
     try {
-        const response = await fetch("https://inventory-management-project-web.vercel.app/submit", {
+        const response = await fetch("/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
