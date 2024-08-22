@@ -26,9 +26,8 @@ document.getElementById("dataForm").addEventListener("submit", async function (e
             body: JSON.stringify(formData),
         });
 
-        const data = await response.json();
-
         if (response.ok) {
+            const data = await response.json();
             swal({
                 title: "Success!",
                 text: "Form saved successfully!",
@@ -38,9 +37,10 @@ document.getElementById("dataForm").addEventListener("submit", async function (e
                 window.location.reload();
             });
         } else {
+            const errorData = await response.json();
             swal({
                 title: "Error",
-                text: "Error Submitting Form",
+                text: errorData.error || "Error Submitting Form",
                 icon: "warning",
                 dangerMode: true,
             });
@@ -52,7 +52,6 @@ document.getElementById("dataForm").addEventListener("submit", async function (e
             icon: "warning",
             dangerMode: true,
         });
-         console.error('Error processing request:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error processing request:', error);
     }
 });
